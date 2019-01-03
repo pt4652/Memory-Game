@@ -8,6 +8,9 @@
  *   https://gomakethings.com/
  *   https://raventools.com/
  *   http://marciavillalba.com/foobar
+ * 
+ *   Updated 1/2/2019 to disable cards when first clicked
+ *   and support multiple size of user devices.
  *   
  */
    
@@ -65,11 +68,9 @@ function newGame() {
     numberOfStars = 3;
     cardsArray = shuffle(cardsArray);
     var item = document.getElementById("deckId");
-//    item.innerHTML = "";
     for (x = 0; x < cardsArray.length; x ++) {
         item.replaceChild(cardsArray[x], item.childNodes[x]);
         console.log(item.childNodes[x]);
-//        item.appendChild(cardsArray[x], item.childNodes[x]);
     }
     startTimer();
 }
@@ -141,8 +142,8 @@ var doMatchCards = function() {
 
 // If not turn the cards back over
 function unFlipCards() {
-    openCards[0].classList.remove("open","show");
-    openCards[1].classList.remove("open","show");  
+    openCards[0].classList.remove("open","show","noclick");
+    openCards[1].classList.remove("open","show","noclick");  
     openCards = [];
 }
 
@@ -150,7 +151,7 @@ function unFlipCards() {
 /* Create a function to add the classes to each card */
 function turnCard() {
     if (openCards.length < 2) {
-        this.classList.add("open","show");
+        this.classList.add("open","show","noclick");
         openCards.push(this);
     }
     if (openCards.length == 2) {
@@ -181,7 +182,7 @@ for (x = 0; x < cardDeck.length; x ++) {
 
 
 
-//    Restart game from panel not working
+// Restart game from panel
 function restartGame() {
     window.location.reload(true);
 }
